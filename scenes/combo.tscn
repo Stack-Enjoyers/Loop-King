@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/combo.gd" id="1_751pf"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_bynum"]
-b = Vector2(0, -100)
+b = Vector2(0, -444)
 
 [node name="Combo Screen" type="Node2D"]
 script = ExtResource("1_751pf")
@@ -14,3 +14,10 @@ script = ExtResource("1_751pf")
 shape = SubResource("SegmentShape2D_bynum")
 
 [node name="Arrows" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+autostart = true
+
+[connection signal="area_shape_entered" from="KillZone" to="." method="_on_kill_zone_area_shape_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
