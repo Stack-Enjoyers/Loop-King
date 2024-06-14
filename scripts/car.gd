@@ -1,28 +1,18 @@
 extends CharacterBody2D
 
+@onready var collision_shape2d = $Area2D/CollisionShape2D
+@onready var character_body2d = $"."
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-
-func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y += gravity * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+var speed = 200
+var lane_switch_distance = null
+func _process(delta):
+	lane_switch_distance = collision_shape2d.shape.size[1]
+	# lane switching controls
+	var direction = Input.get_axis("car_up", "car_down")
 	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		lane_switch(direction)
 
-	move_and_slide()
+func lane_switch(direction):
+	var previous_location = character_body2d.position
+	var target_location = previous_location.y + (direction * lane_switch_distance)
+	character_body2d.position = Vector2(previous_location.x, target_location)
