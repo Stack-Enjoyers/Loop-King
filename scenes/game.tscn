@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://jhop2clc1syl"]
+[gd_scene load_steps=4 format=3 uid="uid://jhop2clc1syl"]
 
 [ext_resource type="PackedScene" uid="uid://uwm6lyu7bvxp" path="res://scenes/car.tscn" id="1_4xdme"]
 [ext_resource type="PackedScene" uid="uid://vbwn85dsk1jf" path="res://scenes/combo.tscn" id="1_lcm5q"]
+[ext_resource type="PackedScene" uid="uid://cqcd2pcg6xb0e" path="res://scenes/road.tscn" id="3_4s7or"]
 
 [node name="Game" type="Node2D"]
 
@@ -13,3 +14,8 @@ drag_vertical_enabled = true
 
 [node name="Combo Screen" parent="." instance=ExtResource("1_lcm5q")]
 position = Vector2(0, -39)
+
+[node name="TileMap" parent="." instance=ExtResource("3_4s7or")]
+z_index = -1
+position = Vector2(-67, 117)
+scale = Vector2(0.35, 0.35)
