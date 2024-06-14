@@ -14,8 +14,21 @@ func _input(event):
 		lane_switch(-1)
 	elif event.is_action_pressed("car_down") and character_body2d.position.y < 73.75:
 		lane_switch(1)
+	
+	if event.is_action_pressed("ui_up"):
+		arrow_combo("up")
+	elif event.is_action_pressed("ui_down"):
+		arrow_combo("down")
+	elif event.is_action_pressed("ui_left"):
+		arrow_combo("left")
+	elif event.is_action_pressed("ui_right"):
+		arrow_combo("right")
 
 func lane_switch(direction):
 	var previous_location = character_body2d.position
 	var target_location = previous_location.y + (direction * lane_switch_distance * 2.5)
 	character_body2d.position = Vector2(previous_location.x, target_location)
+	print(character_body2d.position)
+
+func arrow_combo(direction):
+	print(direction)

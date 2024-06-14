@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://vbwn85dsk1jf"]
+
+[ext_resource type="Script" path="res://scripts/combo.gd" id="1_751pf"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_bynum"]
+b = Vector2(0, -100)
+
+[node name="Combo Screen" type="Node2D"]
+script = ExtResource("1_751pf")
+
+[node name="KillZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+shape = SubResource("SegmentShape2D_bynum")
+
+[node name="Arrows" type="Node2D" parent="."]

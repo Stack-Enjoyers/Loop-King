@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://jhop2clc1syl"]
+[gd_scene load_steps=3 format=3 uid="uid://jhop2clc1syl"]
 
 [ext_resource type="PackedScene" uid="uid://uwm6lyu7bvxp" path="res://scenes/car.tscn" id="1_4xdme"]
+[ext_resource type="PackedScene" uid="uid://vbwn85dsk1jf" path="res://scenes/combo.tscn" id="1_lcm5q"]
 
 [node name="Game" type="Node2D"]
+
+[node name="Combo Screen" parent="." instance=ExtResource("1_lcm5q")]
+position = Vector2(0, -258)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_4xdme")]
 
