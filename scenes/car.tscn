@@ -68,5 +68,6 @@ frame_progress = 0.0266351
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 3.5)
 shape = SubResource("RectangleShape2D_8318v")
 disabled = true
