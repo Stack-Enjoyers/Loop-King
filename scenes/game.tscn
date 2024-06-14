@@ -6,5 +6,7 @@
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_4xdme")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(281, -105)
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(189, -77)
+scale = Vector2(0.5, 0.5)
+drag_vertical_enabled = true
