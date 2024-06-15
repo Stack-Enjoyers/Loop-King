@@ -6,16 +6,19 @@
 
 [node name="Game" type="Node2D"]
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_4xdme")]
-
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(378, -154)
+position = Vector2(2.08165e-12, 2.08165e-12)
+anchor_mode = 0
 drag_vertical_enabled = true
 
 [node name="Combo Screen" parent="." instance=ExtResource("1_lcm5q")]
-position = Vector2(0, -39)
+position = Vector2(143, 281)
 
-[node name="TileMap" parent="." instance=ExtResource("3_4s7or")]
+[node name="Road" parent="." instance=ExtResource("3_4s7or")]
 z_index = -1
-position = Vector2(-67, 117)
-scale = Vector2(0.35, 0.35)
+position = Vector2(1, 2)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_4xdme")]
+position = Vector2(176, 466)
+
+[connection signal="speed_changed" from="Combo Screen" to="Road" method="_on_combo_screen_speed_changed"]

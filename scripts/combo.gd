@@ -3,6 +3,9 @@ extends Node2D
 @onready var arrows_NODE = $Arrows
 @onready var timer = $Timer
 
+signal speed_changed(new_speed)
+@export var speed = 5
+
 var rng = RandomNumberGenerator.new()
 const arrow_scene: PackedScene = preload("res://scenes/arrow.tscn")
 var arrows = []
@@ -25,6 +28,9 @@ func arrow_combo(direction):
 	if len(arrows) > 0 and direction == arrows[0].rotation_degrees / 90:
 		arrows[0].queue_free()
 		arrows.pop_front()
+		print("pop and change")
+		speed += 1
+		speed_changed.emit(speed)
 	else:
 		order66()
 			
@@ -38,14 +44,14 @@ func spawn_random_child_arrow():
 	new_arrow.rotation_degrees = r * 90
 	arrows.append(new_arrow)
 
-func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	order66()
-
 func order66():
 	for n in arrows_NODE.get_children():
 		arrows_NODE.remove_child(n)
 		n.queue_free()
 		arrows.pop_front()
+		
+func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	order66()
 
 func _on_timer_timeout():
 	spawn_random_child_arrow()

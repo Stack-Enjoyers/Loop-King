@@ -4,7 +4,6 @@ extends CharacterBody2D
 @onready var character_body2d = $"."
 
 var t = 0.1
-var speed = 200
 var lane_switch_distance = null
 
 var direction = 0
@@ -15,11 +14,12 @@ var timetolerp = 0.1
 			
 func _ready():
 	lane_switch_distance = collision_shape2d.shape.get_rect().size[1]
+	target_location = character_body2d.position
 
 func _physics_process(delta):
 	if direction != 0 and t == 0.0:
 		previous_location = character_body2d.position
-		target_y = previous_location.y + (direction * lane_switch_distance * 2.5)
+		target_y = previous_location.y + (direction * lane_switch_distance * 2.85)
 		target_location = Vector2(previous_location.x, target_y)
 		direction = 0
 	else:
@@ -29,10 +29,10 @@ func _physics_process(delta):
 		character_body2d.position = previous_location.lerp(target_location, t / timetolerp)
 	
 func _input(event):
-	if t == 0.1 and event.is_action_pressed("car_up") and character_body2d.position.y > -73.75:
+	if t == 0.1 and event.is_action_pressed("car_up") and character_body2d.position.y > 392.25:
 		t = 0.0
 		direction = -1
-	elif t == 0.1 and event.is_action_pressed("car_down") and character_body2d.position.y < 73.75:
+	elif t == 0.1 and event.is_action_pressed("car_down") and character_body2d.position.y < 539.75:
 		t = 0.0
 		direction = 1
 
