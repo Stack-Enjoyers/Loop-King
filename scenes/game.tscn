@@ -27,4 +27,5 @@ position = Vector2(83, 562)
 [node name="Bg" parent="." instance=ExtResource("4_ovwfw")]
 
 [connection signal="speed_changed" from="Combo Screen" to="Road" method="_on_combo_screen_speed_changed"]
+[connection signal="speed_changed" from="Combo Screen" to="Bg" method="_on_combo_screen_speed_changed"]
 [connection signal="hit" from="Road" to="Combo Screen" method="_on_road_hit"]
