@@ -10,6 +10,9 @@ var rng = RandomNumberGenerator.new()
 const arrow_scene: PackedScene = preload("res://scenes/arrow.tscn")
 var arrows = []
 
+const CAP = 50
+const PAC = 2
+
 func _ready():
 	rng.randomize()
 	timer.start()
@@ -29,9 +32,9 @@ func arrow_combo(direction):
 		arrows[0].queue_free()
 		arrows.pop_front()
 		print("pop and change")
-		speed += 1
-		speed_changed.emit(speed)
+		increase_speed()
 	else:
+		decrease_speed()
 		order66()
 			
 func spawn_random_child_arrow():
@@ -50,8 +53,24 @@ func order66():
 		n.queue_free()
 		arrows.pop_front()
 		
+func increase_speed():
+	if speed < CAP:
+		speed += 1
+	speed_changed.emit(speed)
+	
+func decrease_speed():
+	if speed > PAC:
+		print("more than pac")
+		speed -= 1
+	speed_changed.emit(speed)
+		
 func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	order66()
+	decrease_speed()
 
 func _on_timer_timeout():
 	spawn_random_child_arrow()
+
+func _on_road_hit():
+	decrease_speed()
+	print("got hit")

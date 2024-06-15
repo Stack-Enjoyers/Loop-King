@@ -1,11 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cqcd2pcg6xb0e"]
+[gd_scene load_steps=5 format=3 uid="uid://cqcd2pcg6xb0e"]
 
 [ext_resource type="Texture2D" uid="uid://cq62q5jpjqvas" path="res://assets/road.png" id="1_x671f"]
 [ext_resource type="Script" path="res://scripts/road.gd" id="2_1hv3s"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_n40ht"]
-a = Vector2(-13, 0)
-b = Vector2(-13, -62)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3nylk"]
 texture = ExtResource("1_x671f")
@@ -23,13 +19,8 @@ sources/0 = SubResource("TileSetAtlasSource_3nylk")
 [node name="Road" type="Node2D"]
 script = ExtResource("2_1hv3s")
 
-[node name="KillZone" type="Area2D" parent="."]
-position = Vector2(-8, 589)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
-shape = SubResource("SegmentShape2D_n40ht")
-
 [node name="Timer" type="Timer" parent="."]
+autostart = true
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-137, 2.08165e-12)
@@ -45,7 +36,7 @@ tile_set = SubResource("TileSet_5iu2g")
 format = 2
 layer_0/tile_data = PackedInt32Array(393217, 0, 0, 327681, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 327687, 0, 0, 393223, 0, 0, 393222, 0, 0, 393221, 0, 0, 393220, 0, 0, 393219, 0, 0, 393218, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0)
 
-[node name="Roads" type="Node2D" parent="."]
+[node name="Rocks" type="Node2D" parent="."]
+position = Vector2(1210, 475)
 
-[connection signal="body_entered" from="KillZone" to="TileMap" method="_on_kill_zone_body_entered"]
-[connection signal="body_shape_entered" from="KillZone" to="TileMap" method="_on_kill_zone_body_shape_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
