@@ -19,7 +19,7 @@ func _ready():
 func _process(delta):
 	if direction != 0 and t == 0.0:
 		previous_location = character_body2d.position
-		target_y = previous_location.y + (direction * lane_switch_distance * 2.85)
+		target_y = previous_location.y + (direction * 2 * 29.0)
 		target_location = Vector2(previous_location.x, target_y)
 		direction = 0
 	else:
@@ -29,9 +29,9 @@ func _process(delta):
 		character_body2d.position = previous_location.lerp(target_location, t / timetolerp)
 	
 func _input(event):
-	if t == 0.1 and event.is_action_pressed("car_up") and character_body2d.position.y > 392.25:
+	if t == 0.1 and event.is_action_pressed("car_up") and character_body2d.position.y > 504:
 		t = 0.0
 		direction = -1
-	elif t == 0.1 and event.is_action_pressed("car_down") and character_body2d.position.y < 539.75:
+	elif t == 0.1 and event.is_action_pressed("car_down") and character_body2d.position.y < 620:
 		t = 0.0
 		direction = 1

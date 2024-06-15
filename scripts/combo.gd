@@ -43,7 +43,6 @@ func arrow_combo(direction):
 	if len(arrows) > 0 and direction == arrows[0].rotation_degrees / 90:
 		arrows[0].queue_free()
 		arrows.pop_front()
-		print("pop and change")
 		increase_speed()
 	else:
 		decrease_speed()
@@ -72,14 +71,12 @@ func increase_speed():
 	
 func decrease_speed():
 	if speed > PAC:
-		print("more than pac")
 		speed -= 1
 	speed_changed.emit(speed)
 	
 func timer_fixer_upper_loop_mode():
 	var cof = 7
 	timer.wait_time = cof / 1.0/speed
-	print(timer.wait_time)
 		
 func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	order66()
@@ -89,4 +86,3 @@ func _on_timer_timeout():
 
 func _on_road_hit():
 	decrease_speed()
-	print("got hit")
