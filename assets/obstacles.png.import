@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chyuwmpne5ldw"
-path="res://.godot/imported/road.png-72005ad96a94b3869b023c4f4a0b0b7d.ctex"
+uid="uid://c4kxoged00ulk"
+path="res://.godot/imported/obstacles.png-fa91b95ae8ea409fb447177152ecc30d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/road.png"
-dest_files=["res://.godot/imported/road.png-72005ad96a94b3869b023c4f4a0b0b7d.ctex"]
+source_file="res://assets/obstacles.png"
+dest_files=["res://.godot/imported/obstacles.png-fa91b95ae8ea409fb447177152ecc30d.ctex"]
 
 [params]
 

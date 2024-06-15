@@ -1,44 +1,46 @@
 [gd_scene load_steps=6 format=3 uid="uid://cqcd2pcg6xb0e"]
 
-[ext_resource type="Texture2D" uid="uid://cq62q5jpjqvas" path="res://assets/road.png" id="1_x671f"]
+[ext_resource type="Texture2D" uid="uid://chyuwmpne5ldw" path="res://assets/road.png" id="1_x671f"]
 [ext_resource type="Script" path="res://scripts/road.gd" id="2_1hv3s"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3nylk"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ggaer"]
 texture = ExtResource("1_x671f")
-0:0/size_in_atlas = Vector2i(31, 26)
+texture_region_size = Vector2i(100, 80)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-250, -205, 250, -205, 250, 205, -250, 205)
 
 [sub_resource type="TileSet" id="TileSet_5iu2g"]
-tile_size = Vector2i(500, 410)
+tile_size = Vector2i(100, 80)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_3nylk")
+sources/7 = SubResource("TileSetAtlasSource_ggaer")
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_boq2i"]
-a = Vector2(-127, 279)
+a = Vector2(-2, 421)
 
 [node name="Road" type="Node2D"]
+z_index = 1
 script = ExtResource("2_1hv3s")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(-137, 2.08165e-12)
-scale = Vector2(0.21, 0.21)
+position = Vector2(-164, -235)
+scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_5iu2g")
 format = 2
-layer_0/tile_data = PackedInt32Array(393217, 0, 0, 327681, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 327687, 0, 0, 393223, 0, 0, 393222, 0, 0, 393221, 0, 0, 393220, 0, 0, 393219, 0, 0, 393218, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 0)
+layer_0/tile_data = PackedInt32Array(262145, 7, 0, 262146, 7, 0, 262147, 7, 0, 262148, 7, 0, 262149, 7, 0, 262150, 7, 0, 262151, 7, 0, 262152, 7, 0, 262153, 7, 0, 262154, 7, 0, 262155, 7, 0, 262156, 7, 0, 262157, 7, 0, 262158, 7, 0)
 
 [node name="Rocks" type="Node2D" parent="."]
 position = Vector2(1210, 475)
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(530, 297)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-220, 230)
+position = Vector2(1, 9)
 shape = SubResource("SegmentShape2D_boq2i")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_2d_area_shape_entered"]

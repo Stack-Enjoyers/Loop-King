@@ -15,7 +15,6 @@ signal hit()
 func _ready():
 	timer.start()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	for n in rocks.get_children():
 		n.speed =  speed
@@ -30,12 +29,9 @@ func spawn_obstacle():
 	var r = rng.randi_range(0, 2)
 	var new_rock = ROCK_SCENE.instantiate()
 	rocks.add_child(new_rock)
-	#print("i added a new ", new_rock.name)
 	if r == 0:
 		new_rock.position.y -= 73.75
 	elif r == 1:
-		pass
-	elif r == 2:
 		new_rock.position.y += 73.75
 		
 func timer_fixer_upper():
@@ -50,3 +46,8 @@ func _on_timer_timeout():
 	
 func got_hit():
 	hit.emit()
+
+
+func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	rocks.remove_child(area)
+	area.queue_free()

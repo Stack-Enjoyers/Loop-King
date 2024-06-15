@@ -1,32 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://uwm6lyu7bvxp"]
+[gd_scene load_steps=24 format=3 uid="uid://uwm6lyu7bvxp"]
 
 [ext_resource type="Script" path="res://scripts/car.gd" id="1_6qys5"]
-[ext_resource type="Texture2D" uid="uid://cjyccvbt85iet" path="res://assets/adventurer-Sheet.png" id="1_7pbge"]
 [ext_resource type="Texture2D" uid="uid://b03fbg8swxqv8" path="res://assets/vroom.png" id="3_rbxps"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4po0c"]
-atlas = ExtResource("1_7pbge")
-region = Rect2(50, 37, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nrnn7"]
-atlas = ExtResource("1_7pbge")
-region = Rect2(100, 37, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kprkn"]
-atlas = ExtResource("1_7pbge")
-region = Rect2(150, 37, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0xgfp"]
-atlas = ExtResource("1_7pbge")
-region = Rect2(200, 37, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lk85s"]
-atlas = ExtResource("1_7pbge")
-region = Rect2(250, 37, 50, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4dj4e"]
-atlas = ExtResource("1_7pbge")
-region = Rect2(300, 37, 50, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qnecg"]
 atlas = ExtResource("3_rbxps")
@@ -108,29 +83,6 @@ region = Rect2(900, 0, 100, 80)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4po0c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nrnn7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kprkn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0xgfp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lk85s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4dj4e")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_qnecg")
 }, {
 "duration": 1.0,
@@ -203,11 +155,12 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8318v"]
-size = Vector2(21.5, 29.5)
+size = Vector2(87.5, 40)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 5
 position = Vector2(175, 466)
-scale = Vector2(2, 2)
+scale = Vector2(1.24, 1.24)
 collision_layer = 2
 script = ExtResource("1_6qys5")
 
@@ -215,8 +168,8 @@ script = ExtResource("1_6qys5")
 sprite_frames = SubResource("SpriteFrames_j0ldu")
 animation = &"drive"
 autoplay = "drive"
-frame_progress = 0.228198
+frame_progress = 0.784331
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 3.5)
+position = Vector2(-1.25, 2)
 shape = SubResource("RectangleShape2D_8318v")
