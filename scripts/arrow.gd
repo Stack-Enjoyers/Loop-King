@@ -4,8 +4,10 @@ extends Area2D
 
 const START_POSITION: Vector2 = Vector2(800, -100)
 const TARGET_POSITION: Vector2 = Vector2(0, -100)
-var t = 0.0
+
+var parent
+func _ready():
+	parent = get_parent().get_parent()
 
 func _process(delta):
-	t += delta * 0.4
-	area_2d.position = START_POSITION.lerp(TARGET_POSITION, t)
+	area_2d.position.x = area_2d.position.x - 10

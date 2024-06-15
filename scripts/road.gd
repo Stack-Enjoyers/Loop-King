@@ -24,6 +24,8 @@ func _process(delta):
 	if tilemap.position.x < -200:
 		tilemap.position.x = -100
 		
+	timer_fixer_upper()
+		
 func spawn_obstacle():
 	var r = rng.randi_range(0, 2)
 	var new_rock = ROCK_SCENE.instantiate()
@@ -36,6 +38,9 @@ func spawn_obstacle():
 	elif r == 2:
 		new_rock.position.y += 73.75
 		
+func timer_fixer_upper():
+	var cof = 7.5
+	timer.wait_time = cof * (1.0 / speed)
 
 func _on_combo_screen_speed_changed(new_speed):
 	speed = new_speed

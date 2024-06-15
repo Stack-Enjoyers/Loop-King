@@ -16,7 +16,7 @@ func _ready():
 	lane_switch_distance = collision_shape2d.shape.get_rect().size[1]
 	target_location = character_body2d.position
 
-func _physics_process(delta):
+func _process(delta):
 	if direction != 0 and t == 0.0:
 		previous_location = character_body2d.position
 		target_y = previous_location.y + (direction * lane_switch_distance * 2.85)
@@ -35,6 +35,3 @@ func _input(event):
 	elif t == 0.1 and event.is_action_pressed("car_down") and character_body2d.position.y < 539.75:
 		t = 0.0
 		direction = 1
-
-func arrow_combo(direction):
-	print(direction)

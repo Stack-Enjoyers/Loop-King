@@ -10,12 +10,24 @@ var rng = RandomNumberGenerator.new()
 const arrow_scene: PackedScene = preload("res://scenes/arrow.tscn")
 var arrows = []
 
+var mode
+
 const CAP = 50
 const PAC = 2
 
 func _ready():
+	mode = "spin_control"
 	rng.randomize()
 	timer.start()
+	
+func _process(delta):
+	if mode == "spin_control":
+		pass
+		#spin control shit
+	elif mode == "loop_mode":
+		pass
+		#loop mode shit
+	timer_fixer_upper_loop_mode()
 	
 func _input(event):
 	if event.is_action_pressed("ui_up"):
@@ -42,7 +54,7 @@ func spawn_random_child_arrow():
 	"""
 	var r = rng.randi_range(0, 3)
 	var new_arrow = arrow_scene.instantiate()
-	new_arrow.position.x = new_arrow.position.x + 800
+	#new_arrow.position.x = new_arrow.position.x + 800
 	arrows_NODE.add_child(new_arrow)
 	new_arrow.rotation_degrees = r * 90
 	arrows.append(new_arrow)
@@ -55,7 +67,7 @@ func order66():
 		
 func increase_speed():
 	if speed < CAP:
-		speed += 1
+		speed += 0.5
 	speed_changed.emit(speed)
 	
 func decrease_speed():
@@ -63,10 +75,14 @@ func decrease_speed():
 		print("more than pac")
 		speed -= 1
 	speed_changed.emit(speed)
+	
+func timer_fixer_upper_loop_mode():
+	var cof = 7
+	timer.wait_time = cof / 1.0/speed
+	print(timer.wait_time)
 		
 func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	order66()
-	decrease_speed()
 
 func _on_timer_timeout():
 	spawn_random_child_arrow()
