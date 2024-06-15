@@ -16,5 +16,4 @@ func _process(delta):
 
 
 func _on_combo_screen_speed_changed(new_speed):
-	print("hello")
 	current_speed = standard_speed + new_speed
