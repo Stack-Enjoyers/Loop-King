@@ -26,6 +26,11 @@ position = Vector2(83, 562)
 
 [node name="Bg" parent="." instance=ExtResource("4_ovwfw")]
 
+[connection signal="got_hit" from="Combo Screen" to="CharacterBody2D" method="_on_combo_screen_got_hit"]
+[connection signal="loop_mode" from="Combo Screen" to="CharacterBody2D" method="_on_combo_screen_loop_mode"]
 [connection signal="speed_changed" from="Combo Screen" to="Road" method="_on_combo_screen_speed_changed"]
 [connection signal="speed_changed" from="Combo Screen" to="Bg" method="_on_combo_screen_speed_changed"]
+[connection signal="spin_control_animation" from="Combo Screen" to="CharacterBody2D" method="_on_combo_screen_spin_control_animation"]
+[connection signal="wrong_input" from="Combo Screen" to="CharacterBody2D" method="_on_combo_screen_wrong_input"]
 [connection signal="hit" from="Road" to="Combo Screen" method="_on_road_hit"]
+[connection signal="hit_animation_playing" from="CharacterBody2D" to="Combo Screen" method="_on_character_body_2d_hit_animation_playing"]
