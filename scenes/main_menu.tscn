@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbv1n4xv1qoth"]
+[gd_scene load_steps=11 format=3 uid="uid://dbv1n4xv1qoth"]
 
-[ext_resource type="Texture2D" uid="uid://b03fbg8swxqv8" path="res://assets/vroom.png" id="1_k7cs4"]
 [ext_resource type="Script" path="res://scripts/start_button.gd" id="1_o4qw2"]
 [ext_resource type="AudioStream" uid="uid://cwojuqh28ubrl" path="res://assets/audio/music/spin_mode1.mp3" id="1_oq6jf"]
 [ext_resource type="PackedScene" uid="uid://c0pbwrvvw16kp" path="res://scenes/bg.tscn" id="2_486e1"]
@@ -8,6 +7,22 @@
 [ext_resource type="PackedScene" uid="uid://uwm6lyu7bvxp" path="res://scenes/car.tscn" id="4_3vnwm"]
 [ext_resource type="AudioStream" uid="uid://psuuvj07y7if" path="res://assets/audio/music/main_menu.mp3" id="7_f4jdt"]
 [ext_resource type="AudioStream" uid="uid://blxfqoqpx18wo" path="res://assets/audio/music/loop_mode1.mp3" id="8_dpygm"]
+[ext_resource type="Texture2D" uid="uid://bmatpafskl3i3" path="res://assets/logo.PNG" id="8_eftda"]
+[ext_resource type="Texture2D" uid="uid://bnl51g2usv5ej" path="res://assets/black.jpg" id="9_r8xkh"]
+
+[sub_resource type="GDScript" id="GDScript_6ex1b"]
+script/source = "extends Timer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -17,14 +32,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Logo" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 78.0
-offset_top = 39.0
-offset_right = 1078.0
-offset_bottom = 119.0
-texture = ExtResource("1_k7cs4")
-
 [node name="Bg" parent="." instance=ExtResource("2_486e1")]
 script = null
 
@@ -32,6 +39,7 @@ script = null
 script = null
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("4_3vnwm")]
+position = Vector2(109, 558)
 script = null
 
 [node name="Start Button" type="Button" parent="."]
@@ -59,5 +67,42 @@ autoplay = true
 [node name="loop_mode1" type="AudioStreamPlayer" parent="music"]
 stream = ExtResource("8_dpygm")
 volume_db = -39.178
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(279, 143)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("8_eftda")
+
+[node name="black borders" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(-717.425, 271.5)
+scale = Vector2(0.498316, -0.736111)
+texture = ExtResource("9_r8xkh")
+
+[node name="Sprite2D3" type="Sprite2D" parent="black borders"]
+z_index = 10
+position = Vector2(5888.6, -69.9623)
+scale = Vector2(1.48422, 1)
+texture = ExtResource("9_r8xkh")
+
+[node name="Sprite2D2" type="Sprite2D" parent="black borders"]
+z_index = 10
+position = Vector2(3293.13, 678.566)
+rotation = -1.5708
+scale = Vector2(0.215129, 5.25763)
+texture = ExtResource("9_r8xkh")
+
+[node name="Sprite2D4" type="Sprite2D" parent="black borders"]
+z_index = 10
+position = Vector2(3302.39, -821.208)
+rotation = -1.5708
+scale = Vector2(0.215129, 5.25408)
+texture = ExtResource("9_r8xkh")
+
+[node name="Game Timer" type="Timer" parent="."]
+wait_time = 174.675
+one_shot = true
+autostart = true
+script = SubResource("GDScript_6ex1b")
 
 [connection signal="pressed" from="Start Button" to="Start Button" method="_on_pressed"]

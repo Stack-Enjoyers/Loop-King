@@ -187,7 +187,7 @@ size = Vector2(87.5, 40)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 5
-position = Vector2(83, 562)
+rotation = 6.28319
 scale = Vector2(1.24, 1.24)
 collision_layer = 2
 script = ExtResource("1_6qys5")
@@ -195,7 +195,6 @@ script = ExtResource("1_6qys5")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_j0ldu")
 animation = &"drive"
-frame_progress = 0.701005
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.25, 2)
