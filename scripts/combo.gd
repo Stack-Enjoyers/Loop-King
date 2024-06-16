@@ -34,7 +34,6 @@ func _ready():
 	rng.randomize()
 	
 func _process(delta):
-	print(top_speed)
 	if mode != "hit":
 		check_mode()
 		timer_fixer_upper_loop_mode()
