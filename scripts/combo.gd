@@ -46,7 +46,7 @@ func check_mode():
 		spin_control_animation.emit()
 		switch_mode = false
 		order66()
-		loop_mode_min = speed * 1.2
+		loop_mode_min = speed * 1.4
 		mode = "spin_control"
 		spawn_spin_control_arrows()
 		timer.start()
