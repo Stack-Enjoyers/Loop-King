@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b1jl40xp8ch3e"]
+[gd_scene load_steps=40 format=3 uid="uid://cwrfgjs48vff0"]
 
 [ext_resource type="Texture2D" uid="uid://b03fbg8swxqv8" path="res://assets/vroom.png" id="1_qu3iu"]
 [ext_resource type="Texture2D" uid="uid://cemdyukuhq3jp" path="res://assets/hit-spritesheed.png" id="2_gwprq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://crny8x8rrrw4u" path="res://assets/road_tile.png" id="5_xauxa"]
 [ext_resource type="Texture2D" uid="uid://bcg5dsx0txmrs" path="res://assets/bg/city_black.png" id="6_rij5f"]
 [ext_resource type="Texture2D" uid="uid://52v75wd8vcpg" path="res://assets/bg/city_blue.png" id="7_ox205"]
+[ext_resource type="Script" path="res://scripts/cutscene_road.gd" id="8_dtgwh"]
 [ext_resource type="Texture2D" uid="uid://bmatpafskl3i3" path="res://assets/logo.PNG" id="9_koaw0"]
 [ext_resource type="AudioStream" uid="uid://dpcw0rxgulem6" path="res://assets/audio/music/game_over.mp3" id="10_nhofo"]
 [ext_resource type="Script" path="res://scripts/high_score_display.gd" id="11_r5yir"]
@@ -560,6 +561,7 @@ texture = ExtResource("7_ox205")
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(-15, 647)
+script = ExtResource("8_dtgwh")
 
 [node name="Road" type="TileMap" parent="Node2D"]
 position = Vector2(58, -318)

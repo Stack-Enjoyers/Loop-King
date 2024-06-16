@@ -37,7 +37,7 @@ func _input(event):
 	if t == 0.1 and event.is_action_pressed("car_up") and character_body2d.position.y > 504:
 		t = 0.0
 		direction = -1
-	elif t == 0.1 and event.is_action_pressed("car_down") and character_body2d.position.y < 620:
+	elif t == 0.1 and event.is_action_pressed("car_down") and character_body2d.position.y < 580:
 		t = 0.0
 		direction = 1
 
@@ -60,8 +60,9 @@ func _on_combo_screen_wrong_input():
 		animated_sprite_2d.play()
 
 
-func _on_combo_screen_got_hit():
-	hit_sound.playing = true
+func _on_combo_screen_got_hit(real):
+	if real:
+		hit_sound.playing = true
 	animated_sprite_2d.animation = "hit"
 	animated_sprite_2d.play()
 	hit_animation_playing.emit()
