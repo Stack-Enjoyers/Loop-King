@@ -154,12 +154,13 @@ func reset_spin_control():
 	timer_fixer_upper_loop_mode()
 
 func _on_road_hit(): #hitbox detection for obstacles hitting car
-	if mode == "spin_control":
-		reset_spin_control()
-	else:
-		switch_mode = true
-	decrease_speed()
-	got_hit.emit()
+	if mode != "hit":
+		if mode == "spin_control":
+			reset_spin_control()
+		else:
+			switch_mode = true
+		decrease_speed()
+		got_hit.emit()
 
 
 func _on_character_body_2d_hit_animation_playing():
