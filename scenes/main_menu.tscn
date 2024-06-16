@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbv1n4xv1qoth"]
+[gd_scene load_steps=10 format=3 uid="uid://dbv1n4xv1qoth"]
 
 [ext_resource type="Texture2D" uid="uid://b03fbg8swxqv8" path="res://assets/vroom.png" id="1_k7cs4"]
 [ext_resource type="Script" path="res://scripts/start_button.gd" id="1_o4qw2"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/spin_mode1.mp3" id="1_oq6jf"]
 [ext_resource type="PackedScene" uid="uid://c0pbwrvvw16kp" path="res://scenes/bg.tscn" id="2_486e1"]
 [ext_resource type="PackedScene" uid="uid://cqcd2pcg6xb0e" path="res://scenes/road.tscn" id="3_j5l2t"]
 [ext_resource type="PackedScene" uid="uid://uwm6lyu7bvxp" path="res://scenes/car.tscn" id="4_3vnwm"]
+[ext_resource type="AudioStream" uid="uid://psuuvj07y7if" path="res://assets/audio/music/spin_mode2.mp3" id="7_f4jdt"]
+[ext_resource type="AudioStream" uid="uid://blxfqoqpx18wo" path="res://assets/audio/music/loop_mode1.mp3" id="8_dpygm"]
+[ext_resource type="AudioStream" uid="uid://t4clae6m060a" path="res://assets/audio/music/main_menu.mp3" id="9_03jkr"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -41,5 +45,24 @@ offset_bottom = 575.0
 theme_override_font_sizes/font_size = 56
 text = "Play"
 script = ExtResource("1_o4qw2")
+
+[node name="music" type="Node2D" parent="."]
+
+[node name="spin_mode1" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("1_oq6jf")
+volume_db = -39.178
+
+[node name="spin_mode2" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("7_f4jdt")
+volume_db = -39.178
+
+[node name="loop_mode1" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("8_dpygm")
+volume_db = -39.178
+
+[node name="main_menu" type="AudioStreamPlayer" parent="music"]
+stream = ExtResource("9_03jkr")
+volume_db = -39.178
+autoplay = true
 
 [connection signal="pressed" from="Start Button" to="Start Button" method="_on_pressed"]
