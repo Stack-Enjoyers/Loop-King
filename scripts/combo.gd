@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var arrows_NODE = $Arrows
 @onready var timer = $Timer
+@onready var loop_mode_safety = $loop_mode_safety
 
 signal speed_changed(new_speed)
 signal spin_control_animation()
@@ -36,10 +37,10 @@ func _process(delta):
 	
 func check_mode():
 	if speed >= loop_mode_min and mode != "loop_mode":
-		print("activate loop mode")
 		loop_mode.emit()
 		order66()
-		mode =  "loop_mode"
+		mode = "loop_mode"
+		loop_mode_safety.start()
 		timer.start()
 	elif switch_mode:
 		spin_control_animation.emit()
@@ -67,6 +68,8 @@ func arrow_combo(direction):
 			arrows.pop_front()
 			increase_speed()
 		else:
+			if not loop_mode_safety.is_stopped():
+				return
 			_on_road_hit()
 			order66()
 	elif mode == "spin_control":
