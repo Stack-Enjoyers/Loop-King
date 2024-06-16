@@ -56,6 +56,8 @@ func check_mode():
 			loop_mode_min = speed + 1
 		else:
 			loop_mode_min = speed * 1.4
+			if loop_mode_min > CAP:
+				loop_mode_min = CAP
 		mode = "spin_control"
 		spawn_spin_control_arrows()
 		timer.start()
