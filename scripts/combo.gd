@@ -4,6 +4,11 @@ extends Node2D
 @onready var timer = $Timer
 
 signal speed_changed(new_speed)
+signal spin_control_animation()
+signal got_hit()
+signal wrong_input()
+signal loop_mode()
+
 @export var speed = 5
 var loop_mode_min = speed * 1.2
 
@@ -12,7 +17,7 @@ const arrow_scene: PackedScene = preload("res://scenes/arrow.tscn")
 const spin_control_arrows_scene: PackedScene = preload("res://scenes/spin_control_arrows.tscn")
 
 var spin_control_node = null
-
+var switch_mode = false
 var arrows = []
 var spin_control_input = 0
 var mode 
@@ -25,17 +30,19 @@ func _ready():
 	rng.randomize()
 	
 func _process(delta):
-	check_mode()
-	timer_fixer_upper_loop_mode()
+	if mode != "hit":
+		check_mode()
+		timer_fixer_upper_loop_mode()
 	
 func check_mode():
 	if speed >= loop_mode_min and mode != "loop_mode":
-		print("activate loop mode")
+		loop_mode.emit()
 		order66()
 		mode =  "loop_mode"
 		timer.start()
-	elif speed < (loop_mode_min) and mode != "spin_control":
-		print("exit loop mode")
+	elif switch_mode:
+		spin_control_animation.emit()
+		switch_mode = false
 		order66()
 		loop_mode_min = speed * 1.2
 		mode = "spin_control"
@@ -59,18 +66,15 @@ func arrow_combo(direction):
 			arrows.pop_front()
 			increase_speed()
 		else:
-			decrease_speed()
+			_on_road_hit()
 			order66()
-	else:
+	elif mode == "spin_control":
 		if len(arrows) > 0 and direction == arrows[0]:
-			print("hit correct")
 			arrows.pop_front()
-			increase_speed()
-			#animation
+			spin_control_animation.emit()
 		else:
-			print("hit wrong")
-			reset_spin_control()
-			#animation
+			_on_road_hit()
+		
 			
 func spawn_random_child_arrow():
 	"""returns random number between 0 and 3 (inclusive)
@@ -86,7 +90,7 @@ func spawn_spin_control_arrows():
 	var new_spin_control_arrows = spin_control_arrows_scene.instantiate()
 	arrows_NODE.add_child(new_spin_control_arrows)
 	spin_control_node = arrows_NODE.get_child(0)
-	spin_control_input = 1
+	spin_control_input = 2
 	spin_control_node.frame = (spin_control_input + 2) % 4
 	spin_control_node.position = Vector2(spin_control_node.position.x - 750, spin_control_node.position.y + 120)
 	arrows.append(spin_control_input)
@@ -99,7 +103,7 @@ func order66():
 		
 func increase_speed():
 	if speed < CAP:
-		speed += 0.5
+		speed += 20
 	speed_changed.emit(speed)
 	
 func decrease_speed():
@@ -111,34 +115,50 @@ func timer_fixer_upper_loop_mode():
 	var cof = 7
 	timer.wait_time = cof / 1.0/speed
 		
-func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	order66()
+func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_shape_index): #killzone for incoming arrows in loop_mode
+	_on_road_hit()
 
 func _on_timer_timeout():
 	if mode == "spin_control":
-		spin_control_input += 1
-		spin_control_node.frame = (spin_control_input + 2) % 4
-		spin_control_input = spin_control_input % 4
-		arrows.append(spin_control_input)
-		#add animations
-		if len(arrows) > 1:
-			print("missed timing")
+		if len(arrows) > 0:
 			reset_spin_control()
+		else:
+			spin_control_input += 1
+			spin_control_node.frame = (spin_control_input + 2) % 4
+			spin_control_input = spin_control_input % 4
+			arrows.append(spin_control_input)
+			spin_control_animation.emit()
+			#add animations
+			if spin_control_input == 2:
+				increase_speed()
+			
 	elif mode == "loop_mode":
 		spawn_random_child_arrow()
+	else:
+		mode = "spin_control"
+		timer_fixer_upper_loop_mode()
 
 func reset_spin_control():
 	timer.stop()
 	arrows = []
-	spin_control_input = 1
+	spin_control_input = 2
 	spin_control_node.frame = (spin_control_input + 2) % 4
 	arrows.append(spin_control_input)
-	decrease_speed()
+	wrong_input.emit()
 	timer.start()
 	timer_fixer_upper_loop_mode()
 
-func _on_road_hit():
+func _on_road_hit(): #hitbox detection for obstacles hitting car
 	if mode == "spin_control":
 		reset_spin_control()
 	else:
-		decrease_speed()
+		switch_mode = true
+	decrease_speed()
+	got_hit.emit()
+
+
+func _on_character_body_2d_hit_animation_playing():
+	if mode != "hit":
+		mode = "hit"
+		timer.wait_time = 0.5
+		timer.start()
