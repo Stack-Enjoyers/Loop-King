@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var collision_shape2d = $CollisionShape2D
 @onready var character_body2d = $"."
 @onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var hit_sound = $hit_sound
 
 signal hit_animation_playing()
 
@@ -60,6 +61,7 @@ func _on_combo_screen_wrong_input():
 
 
 func _on_combo_screen_got_hit():
+	hit_sound.playing = true
 	animated_sprite_2d.animation = "hit"
 	animated_sprite_2d.play()
 	hit_animation_playing.emit()
