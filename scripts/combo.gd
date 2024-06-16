@@ -5,29 +5,42 @@ extends Node2D
 
 signal speed_changed(new_speed)
 @export var speed = 5
+var loop_mode_min = speed * 1.2
 
 var rng = RandomNumberGenerator.new()
 const arrow_scene: PackedScene = preload("res://scenes/arrow.tscn")
-var arrows = []
+const spin_control_arrows_scene: PackedScene = preload("res://scenes/spin_control_arrows.tscn")
 
-var mode
+var spin_control_node = null
+
+var arrows = []
+var spin_control_input = 0
+var mode 
 
 const CAP = 50
 const PAC = 2
 
 func _ready():
-	mode = "spin_control"
+	check_mode()
 	rng.randomize()
-	timer.start()
 	
 func _process(delta):
-	if mode == "spin_control":
-		pass
-		#spin control shit
-	elif mode == "loop_mode":
-		pass
-		#loop mode shit
+	check_mode()
 	timer_fixer_upper_loop_mode()
+	
+func check_mode():
+	if speed >= loop_mode_min and mode != "loop_mode":
+		print("activate loop mode")
+		order66()
+		mode =  "loop_mode"
+		timer.start()
+	elif speed < (loop_mode_min) and mode != "spin_control":
+		print("exit loop mode")
+		order66()
+		loop_mode_min = speed * 1.2
+		mode = "spin_control"
+		spawn_spin_control_arrows()
+		timer.start()
 	
 func _input(event):
 	if event.is_action_pressed("ui_up"):
@@ -40,13 +53,24 @@ func _input(event):
 		arrow_combo(3)
 		
 func arrow_combo(direction):
-	if len(arrows) > 0 and direction == arrows[0].rotation_degrees / 90:
-		arrows[0].queue_free()
-		arrows.pop_front()
-		increase_speed()
+	if mode == "loop_mode":
+		if len(arrows) > 0 and direction == arrows[0].rotation_degrees / 90:
+			arrows[0].queue_free()
+			arrows.pop_front()
+			increase_speed()
+		else:
+			decrease_speed()
+			order66()
 	else:
-		decrease_speed()
-		order66()
+		if len(arrows) > 0 and direction == arrows[0]:
+			print("hit correct")
+			arrows.pop_front()
+			increase_speed()
+			#animation
+		else:
+			print("hit wrong")
+			reset_spin_control()
+			#animation
 			
 func spawn_random_child_arrow():
 	"""returns random number between 0 and 3 (inclusive)
@@ -57,6 +81,15 @@ func spawn_random_child_arrow():
 	arrows_NODE.add_child(new_arrow)
 	new_arrow.rotation_degrees = r * 90
 	arrows.append(new_arrow)
+
+func spawn_spin_control_arrows():
+	var new_spin_control_arrows = spin_control_arrows_scene.instantiate()
+	arrows_NODE.add_child(new_spin_control_arrows)
+	spin_control_node = arrows_NODE.get_child(0)
+	spin_control_input = 1
+	spin_control_node.frame = (spin_control_input + 2) % 4
+	spin_control_node.position = Vector2(spin_control_node.position.x - 750, spin_control_node.position.y + 120)
+	arrows.append(spin_control_input)
 
 func order66():
 	for n in arrows_NODE.get_children():
@@ -82,7 +115,30 @@ func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_sh
 	order66()
 
 func _on_timer_timeout():
-	spawn_random_child_arrow()
+	if mode == "spin_control":
+		spin_control_input += 1
+		spin_control_node.frame = (spin_control_input + 2) % 4
+		spin_control_input = spin_control_input % 4
+		arrows.append(spin_control_input)
+		#add animations
+		if len(arrows) > 1:
+			print("missed timing")
+			reset_spin_control()
+	elif mode == "loop_mode":
+		spawn_random_child_arrow()
+
+func reset_spin_control():
+	timer.stop()
+	arrows = []
+	spin_control_input = 1
+	spin_control_node.frame = (spin_control_input + 2) % 4
+	arrows.append(spin_control_input)
+	decrease_speed()
+	timer.start()
+	timer_fixer_upper_loop_mode()
 
 func _on_road_hit():
-	decrease_speed()
+	if mode == "spin_control":
+		reset_spin_control()
+	else:
+		decrease_speed()
