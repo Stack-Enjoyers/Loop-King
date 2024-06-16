@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbv1n4xv1qoth"]
+
+[ext_resource type="Texture2D" uid="uid://b03fbg8swxqv8" path="res://assets/vroom.png" id="1_k7cs4"]
+[ext_resource type="Script" path="res://scripts/start_button.gd" id="1_o4qw2"]
+[ext_resource type="PackedScene" uid="uid://c0pbwrvvw16kp" path="res://scenes/bg.tscn" id="2_486e1"]
+[ext_resource type="PackedScene" uid="uid://cqcd2pcg6xb0e" path="res://scenes/road.tscn" id="3_j5l2t"]
+[ext_resource type="PackedScene" uid="uid://uwm6lyu7bvxp" path="res://scenes/car.tscn" id="4_3vnwm"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 39.0
+offset_right = 1078.0
+offset_bottom = 119.0
+texture = ExtResource("1_k7cs4")
+
+[node name="Bg" parent="." instance=ExtResource("2_486e1")]
+script = null
+
+[node name="Road" parent="." instance=ExtResource("3_j5l2t")]
+script = null
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("4_3vnwm")]
+script = null
+
+[node name="Start Button" type="Button" parent="."]
+z_index = 2
+layout_mode = 2
+offset_left = 478.0
+offset_top = 490.0
+offset_right = 598.0
+offset_bottom = 575.0
+theme_override_font_sizes/font_size = 56
+text = "Play"
+script = ExtResource("1_o4qw2")
+
+[connection signal="pressed" from="Start Button" to="Start Button" method="_on_pressed"]

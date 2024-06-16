@@ -22,7 +22,6 @@ z_index = 0
 position = Vector2(2, 2)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_4xdme")]
-position = Vector2(83, 562)
 
 [node name="Bg" parent="." instance=ExtResource("4_ovwfw")]
 
