@@ -60,8 +60,9 @@ func _on_combo_screen_wrong_input():
 		animated_sprite_2d.play()
 
 
-func _on_combo_screen_got_hit():
-	hit_sound.playing = true
+func _on_combo_screen_got_hit(real):
+	if real:
+		hit_sound.playing = true
 	animated_sprite_2d.animation = "hit"
 	animated_sprite_2d.play()
 	hit_animation_playing.emit()

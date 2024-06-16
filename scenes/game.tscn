@@ -10,6 +10,7 @@
 script = ExtResource("1_8n05d")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
 anchor_mode = 0
 drag_vertical_enabled = true
 

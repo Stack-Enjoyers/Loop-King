@@ -14,6 +14,6 @@ func _ready():
 	parent = get_parent().get_parent()
 
 func _process(delta):
-	t += delta * 1
+	t += delta * 0.5
 	if t < 1.0:
 		area_2d.position = START_POSITION.lerp(TARGET_POSITION, t)
