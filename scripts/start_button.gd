@@ -17,8 +17,11 @@ var game
 var final_cutscene
 var game_running = true
 
+var high_score
+
 func _process(delta):
 	if game_timer.time_left <= 0 and game_running:
+		high_score = game.get_node("Combo Screen").top_speed
 		music.get_node("spin_mode1").playing = false
 		print("START CUTSCENE")
 		game_running = false
@@ -35,7 +38,6 @@ func _on_pressed():
 	game_timer.wait_time = 40
 	game_timer.start()
 	print("timer started")
-	
 
 func main_menu_nuke():
 	logo.queue_free()
