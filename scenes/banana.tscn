@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/rock.gd" id="1_pd4gk"]
 [ext_resource type="Texture2D" uid="uid://bwsauxydlrhxs" path="res://assets/banana.png" id="2_kmux4"]
 
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s2ika"]
 size = Vector2(45.25, 36)
 
