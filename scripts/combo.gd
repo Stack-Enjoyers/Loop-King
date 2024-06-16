@@ -17,7 +17,7 @@ const arrow_scene: PackedScene = preload("res://scenes/arrow.tscn")
 const spin_control_arrows_scene: PackedScene = preload("res://scenes/spin_control_arrows.tscn")
 
 var spin_control_node = null
-var switch_mode = false
+var switch_mode = true
 var arrows = []
 var spin_control_input = 0
 var mode 
@@ -26,7 +26,7 @@ const CAP = 50
 const PAC = 2
 
 func _ready():
-	check_mode()
+	#check_mode()
 	rng.randomize()
 	
 func _process(delta):
@@ -36,6 +36,7 @@ func _process(delta):
 	
 func check_mode():
 	if speed >= loop_mode_min and mode != "loop_mode":
+		print("activate loop mode")
 		loop_mode.emit()
 		order66()
 		mode =  "loop_mode"
@@ -72,6 +73,7 @@ func arrow_combo(direction):
 		if len(arrows) > 0 and direction == arrows[0]:
 			arrows.pop_front()
 			spin_control_animation.emit()
+			spin_control_node.frame +=4
 		else:
 			_on_road_hit()
 		
@@ -103,7 +105,7 @@ func order66():
 		
 func increase_speed():
 	if speed < CAP:
-		speed += 20
+		speed += 0.5
 	speed_changed.emit(speed)
 	
 func decrease_speed():
@@ -136,7 +138,7 @@ func _on_timer_timeout():
 		spawn_random_child_arrow()
 	else:
 		mode = "spin_control"
-		timer_fixer_upper_loop_mode()
+		switch_mode = true
 
 func reset_spin_control():
 	timer.stop()
@@ -160,5 +162,6 @@ func _on_road_hit(): #hitbox detection for obstacles hitting car
 func _on_character_body_2d_hit_animation_playing():
 	if mode != "hit":
 		mode = "hit"
-		timer.wait_time = 0.5
+		order66()
+		timer.wait_time = 1
 		timer.start()

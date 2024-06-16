@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://byvhmy44838ks"]
+[gd_scene load_steps=16 format=3 uid="uid://byvhmy44838ks"]
 
 [ext_resource type="Texture2D" uid="uid://b8mvx1yta2jg8" path="res://assets/spin-control-spritesheet.png" id="1_k8kdg"]
+[ext_resource type="Texture2D" uid="uid://t5ljb6gqf11c" path="res://assets/spin-control-spritesheet2.png" id="2_k8kay"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0oy43"]
 atlas = ExtResource("1_k8kdg")
@@ -17,6 +18,38 @@ region = Rect2(107, 107, 107, 107)
 [sub_resource type="AtlasTexture" id="AtlasTexture_c3f73"]
 atlas = ExtResource("1_k8kdg")
 region = Rect2(0, 107, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eps2p"]
+atlas = ExtResource("2_k8kay")
+region = Rect2(0, 0, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vyry"]
+atlas = ExtResource("2_k8kay")
+region = Rect2(107, 0, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldpp6"]
+atlas = ExtResource("2_k8kay")
+region = Rect2(107, 107, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouw4e"]
+atlas = ExtResource("2_k8kay")
+region = Rect2(0, 107, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k56ke"]
+atlas = ExtResource("2_k8kay")
+region = Rect2(214, 0, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnu21"]
+atlas = ExtResource("2_k8kay")
+region = Rect2(321, 0, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryjff"]
+atlas = ExtResource("2_k8kay")
+region = Rect2(321, 107, 107, 107)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnidf"]
+atlas = ExtResource("2_k8kay")
+region = Rect2(214, 107, 107, 107)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vjqqk"]
 animations = [{
@@ -36,8 +69,38 @@ animations = [{
 "loop": false,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eps2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vyry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldpp6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouw4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k56ke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnu21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryjff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnidf")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [node name="Spin Control Arrows" type="AnimatedSprite2D"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_vjqqk")
+animation = &"new_animation"
