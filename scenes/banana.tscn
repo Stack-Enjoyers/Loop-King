@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://scripts/rock.gd" id="1_pd4gk"]
 [ext_resource type="Texture2D" uid="uid://bwsauxydlrhxs" path="res://assets/banana.png" id="2_kmux4"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s2ika"]
-size = Vector2(45.25, 36)
+size = Vector2(45.25, 20.5)
 
 [node name="Rock" type="Area2D"]
+scale = Vector2(2, 2)
 collision_mask = 2
 script = ExtResource("1_pd4gk")
 
@@ -15,7 +15,7 @@ script = ExtResource("1_pd4gk")
 texture = ExtResource("2_kmux4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.625, 2)
+position = Vector2(2.625, 1.25)
 shape = SubResource("RectangleShape2D_s2ika")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
