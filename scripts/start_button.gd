@@ -17,10 +17,7 @@ func _on_pressed():
 	main_menu.add_child(g)
 	main_menu_nuke()
 	music.get_node("main_menu").playing = false
-	if rng.randi_range(0, 1) == 0:
-		music.get_node("spin_mode1").playing = true
-	else:
-		music.get_node("spin_mode2").playing = true
+	music.get_node("spin_mode1").playing = true
 
 func main_menu_nuke():
 	logo.queue_free()

@@ -3,6 +3,8 @@ extends Node2D
 @onready var arrows_NODE = $Arrows
 @onready var timer = $Timer
 @onready var loop_mode_safety = $loop_mode_safety
+@onready var loop_mode_sound_1 = $loop_mode_sound1
+@onready var spin_mode_1 = $music/spin_mode1
 
 signal speed_changed(new_speed)
 signal spin_control_animation()
@@ -41,6 +43,8 @@ func check_mode():
 		order66()
 		mode = "loop_mode"
 		loop_mode_safety.start()
+		loop_mode_sound_1.playing = true
+		get_parent().get_parent().get_node("music").get_node("spin_mode1").playing = false
 		timer.start()
 	elif switch_mode:
 		spin_control_animation.emit()
@@ -158,6 +162,8 @@ func _on_road_hit(): #hitbox detection for obstacles hitting car
 		reset_spin_control()
 	else:
 		switch_mode = true
+		loop_mode_sound_1.playing = false
+		get_parent().get_parent().get_node("music").get_node("spin_mode1").playing = true
 	decrease_speed()
 	got_hit.emit()
 

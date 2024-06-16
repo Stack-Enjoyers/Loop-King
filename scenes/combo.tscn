@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://vbwn85dsk1jf"]
+[gd_scene load_steps=4 format=3 uid="uid://vbwn85dsk1jf"]
 
 [ext_resource type="Script" path="res://scripts/combo.gd" id="1_751pf"]
+[ext_resource type="AudioStream" uid="uid://blxfqoqpx18wo" path="res://assets/audio/music/loop_mode1.mp3" id="2_6or1e"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_bynum"]
 b = Vector2(0, -444)
@@ -20,6 +21,10 @@ position = Vector2(1174, -156)
 wait_time = 0.8
 
 [node name="loop_mode_safety" type="Timer" parent="."]
+
+[node name="loop_mode_sound1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_6or1e")
+volume_db = -28.493
 
 [connection signal="area_shape_entered" from="KillZone" to="." method="_on_kill_zone_area_shape_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
