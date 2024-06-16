@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddfdpk55peieq"]
+
+[ext_resource type="Script" path="res://scripts/skid_marks.gd" id="1_4nrl0"]
+[ext_resource type="Script" path="res://scripts/skid_controller.gd" id="1_nfme0"]
+
+[sub_resource type="Curve" id="Curve_xyakk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.494505), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ysmcn"]
+offsets = PackedFloat32Array(0, 0.00666666, 0.06, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.6, 0.6, 0.6, 1, 0.455034, 0.455034, 0.455034, 1, 0, 0, 0, 1)
+
+[node name="Trail Controller" type="Node2D"]
+script = ExtResource("1_nfme0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+
+[node name="Line2D" type="Line2D" parent="CharacterBody2D"]
+show_behind_parent = true
+position = Vector2(472, 156)
+points = PackedVector2Array(51, 132)
+width_curve = SubResource("Curve_xyakk")
+gradient = SubResource("Gradient_ysmcn")
+script = ExtResource("1_4nrl0")

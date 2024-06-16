@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddfdpk55peieq"]
+
+[ext_resource type="Script" path="res://scripts/skid_controller.gd" id="1_l42wp"]
+[ext_resource type="Texture2D" uid="uid://bwsauxydlrhxs" path="res://assets/banana.png" id="2_bxwe8"]
+
+[node name="Skid Controller" type="Node2D"]
+script = ExtResource("1_l42wp")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_bxwe8")
+
+[node name="Camera2D" type="Camera2D" parent="."]

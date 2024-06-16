@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d33mly333go2d"]
+
+[ext_resource type="Script" path="res://scripts/basic_movement.gd" id="1_khvl6"]
+[ext_resource type="Script" path="res://scripts/skid.gd" id="1_tspwh"]
+
+[node name="RigidBody2D" type="CharacterBody2D"]
+script = ExtResource("1_khvl6")
+
+[node name="Skid" type="Line2D" parent="."]
+top_level = true
+script = ExtResource("1_tspwh")
