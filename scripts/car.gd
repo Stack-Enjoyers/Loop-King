@@ -49,7 +49,6 @@ func _on_combo_screen_spin_control_animation():
 		animated_sprite_2d.frame = spin_frame
 	else:
 		spin_frame = (spin_frame + 1) % 8
-		print(spin_frame)
 		animated_sprite_2d.frame = spin_frame
 		
 
