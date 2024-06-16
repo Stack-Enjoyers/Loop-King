@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dfqseg2kxs5do"]
 
-[ext_resource type="Texture2D" path="res://assets/spin-control-spritesheet.png" id="1_k8kdg"]
-[ext_resource type="Texture2D" path="res://assets/spin-control-spritesheet2.png" id="2_k8kay"]
+[ext_resource type="Texture2D" uid="uid://b8mvx1yta2jg8" path="res://assets/spin-control-spritesheet.png" id="1_k8kdg"]
+[ext_resource type="Texture2D" uid="uid://t5ljb6gqf11c" path="res://assets/spin-control-spritesheet2.png" id="2_k8kay"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0oy43"]
 atlas = ExtResource("1_k8kdg")

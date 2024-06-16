@@ -21,6 +21,7 @@ position = Vector2(1174, -156)
 wait_time = 0.8
 
 [node name="loop_mode_safety" type="Timer" parent="."]
+wait_time = 5.0
 
 [node name="loop_mode_sound1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_6or1e")
@@ -28,3 +29,4 @@ volume_db = -28.493
 
 [connection signal="area_shape_entered" from="KillZone" to="." method="_on_kill_zone_area_shape_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="loop_mode_safety" to="." method="_on_loop_mode_safety_timeout"]

@@ -51,6 +51,8 @@ func timer_fixer_upper():
 	timer.wait_time = cof * (1.0 / speed)
 
 func _on_combo_screen_speed_changed(new_speed):
+	if new_speed >5:
+		new_speed = 5
 	speed = new_speed
 
 func _on_timer_timeout():

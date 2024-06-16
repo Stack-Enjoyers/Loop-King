@@ -4,9 +4,10 @@
 [ext_resource type="Script" path="res://scripts/rock.gd" id="1_ljo41"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s2ika"]
-size = Vector2(38, 32)
+size = Vector2(38, 19)
 
 [node name="Rock" type="Area2D"]
+scale = Vector2(2, 2)
 collision_mask = 2
 script = ExtResource("1_ljo41")
 
@@ -14,7 +15,7 @@ script = ExtResource("1_ljo41")
 texture = ExtResource("1_b03ue")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 1)
+position = Vector2(-2, 1.5)
 shape = SubResource("RectangleShape2D_s2ika")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

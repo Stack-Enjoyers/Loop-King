@@ -8,12 +8,12 @@ extends Node2D
 
 signal speed_changed(new_speed)
 signal spin_control_animation()
-signal got_hit()
+signal got_hit(real)
 signal wrong_input()
 signal loop_mode()
 
 @export var speed = 5
-var loop_mode_min = speed * 1.2
+var loop_mode_min = speed * 1.4
 
 var rng = RandomNumberGenerator.new()
 const arrow_scene: PackedScene = preload("res://scenes/arrow.tscn")
@@ -24,8 +24,9 @@ var switch_mode = true
 var arrows = []
 var spin_control_input = 0
 var mode 
+var top_speed = 5
 
-const CAP = 50
+const CAP = 15
 const PAC = 2
 
 func _ready():
@@ -33,6 +34,7 @@ func _ready():
 	rng.randomize()
 	
 func _process(delta):
+	print(top_speed)
 	if mode != "hit":
 		check_mode()
 		timer_fixer_upper_loop_mode()
@@ -47,10 +49,14 @@ func check_mode():
 		get_parent().get_parent().get_node("music").get_node("spin_mode1").playing = false
 		timer.start()
 	elif switch_mode:
+		loop_mode_safety.stop()
 		spin_control_animation.emit()
 		switch_mode = false
 		order66()
-		loop_mode_min = speed * 1.2
+		if speed == CAP:
+			loop_mode_min = speed + 1
+		else:
+			loop_mode_min = speed * 1.4
 		mode = "spin_control"
 		spawn_spin_control_arrows()
 		timer.start()
@@ -72,9 +78,11 @@ func arrow_combo(direction):
 			arrows.pop_front()
 			increase_speed()
 		else:
-			if not loop_mode_safety.is_stopped():
-				return
-			_on_road_hit()
+			switch_mode = true
+			loop_mode_sound_1.playing = false
+			get_parent().get_parent().get_node("music").get_node("spin_mode1").playing = true
+			decrease_speed()
+			got_hit.emit(true)
 			order66()
 	elif mode == "spin_control":
 		if len(arrows) > 0 and direction == arrows[0]:
@@ -111,21 +119,36 @@ func order66():
 		arrows.pop_front()
 		
 func increase_speed():
+	var add = speed * 0.2
 	if speed < CAP:
-		speed += 0.5
+		speed = speed * 1.2
+	else:
+		speed = CAP
+	top_speed += add
 	speed_changed.emit(speed)
 	
 func decrease_speed():
+	var remove = speed * 0.2
 	if speed > PAC:
-		speed -= 1
+		speed = speed * 0.8
+	else:
+		speed = PAC
+	top_speed -= remove
 	speed_changed.emit(speed)
 	
 func timer_fixer_upper_loop_mode():
 	var cof = 7
-	timer.wait_time = cof / 1.0/speed
+	var calc = cof / 1.0 / speed
+	if mode == "loop_mode" and calc < 1:
+		calc = 1
+	timer.wait_time = calc
 		
 func _on_kill_zone_area_shape_entered(area_rid, area, area_shape_index, local_shape_index): #killzone for incoming arrows in loop_mode
-	_on_road_hit()
+	switch_mode = true
+	loop_mode_sound_1.playing = false
+	get_parent().get_parent().get_node("music").get_node("spin_mode1").playing = true
+	decrease_speed()
+	got_hit.emit(true)
 
 func _on_timer_timeout():
 	if mode == "spin_control":
@@ -139,7 +162,10 @@ func _on_timer_timeout():
 			spin_control_animation.emit()
 			#add animations
 			if spin_control_input == 2:
-				increase_speed()
+				if speed == CAP:
+					speed += 1
+				else:
+					increase_speed()
 			
 	elif mode == "loop_mode":
 		spawn_random_child_arrow()
@@ -158,19 +184,24 @@ func reset_spin_control():
 	timer_fixer_upper_loop_mode()
 
 func _on_road_hit(): #hitbox detection for obstacles hitting car
-	if mode == "spin_control":
-		reset_spin_control()
-	else:
-		switch_mode = true
-		loop_mode_sound_1.playing = false
-		get_parent().get_parent().get_node("music").get_node("spin_mode1").playing = true
-	decrease_speed()
-	got_hit.emit()
+	if mode != "hit":
+		if mode == "spin_control":
+			reset_spin_control()
+			decrease_speed()
+			got_hit.emit(true)
 
 
 func _on_character_body_2d_hit_animation_playing():
 	if mode != "hit":
+		loop_mode_safety.stop()
 		mode = "hit"
 		order66()
 		timer.wait_time = 1
 		timer.start()
+
+
+func _on_loop_mode_safety_timeout():
+	got_hit.emit(false)
+	loop_mode_sound_1.playing = false
+	get_parent().get_parent().get_node("music").get_node("spin_mode1").playing = true
+	loop_mode_min = speed * 1.4
