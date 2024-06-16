@@ -32,6 +32,7 @@ script = null
 script = null
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("4_3vnwm")]
+position = Vector2(109, 558)
 script = null
 
 [node name="Start Button" type="Button" parent="."]
