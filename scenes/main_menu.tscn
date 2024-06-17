@@ -105,4 +105,13 @@ one_shot = true
 autostart = true
 script = SubResource("GDScript_6ex1b")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 971.0
+offset_top = -1.0
+offset_right = 1169.0
+offset_bottom = 47.0
+theme_override_font_sizes/normal_font_size = 20
+text = "by funkymonkeys"
+
 [connection signal="pressed" from="Start Button" to="Start Button" method="_on_pressed"]

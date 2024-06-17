@@ -3,6 +3,7 @@ extends Button
 const GAME = preload("res://scenes/game.tscn")
 const FINAL_CUTSCENE = preload("res://scenes/final_cutscene.tscn")
 
+@onready var rich_text_label = $"../RichTextLabel"
 @onready var main_menu = $".."
 @onready var logo = $"../Logo"
 @onready var game_timer = $"../Game Timer"
@@ -40,6 +41,7 @@ func _on_pressed():
 	print("timer started")
 
 func main_menu_nuke():
+	#rich_text_label.queue_free()
 	logo.queue_free()
 	bg.queue_free()
 	road.queue_free()

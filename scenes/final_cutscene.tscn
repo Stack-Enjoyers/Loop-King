@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cwrfgjs48vff0"]
+[gd_scene load_steps=41 format=3 uid="uid://cwrfgjs48vff0"]
 
 [ext_resource type="Texture2D" uid="uid://b03fbg8swxqv8" path="res://assets/vroom.png" id="1_qu3iu"]
 [ext_resource type="Texture2D" uid="uid://cemdyukuhq3jp" path="res://assets/hit-spritesheed.png" id="2_gwprq"]
