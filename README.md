@@ -1,3 +1,4 @@
+![image](https://github.com/funkymonkeysgames/Loop-King/assets/48724128/8f6bf929-1d05-42d5-a7ea-56554753403d)
 # Loop King
 Are you ready to fight for a better day?
 
